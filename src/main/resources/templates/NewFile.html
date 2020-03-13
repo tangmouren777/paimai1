@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+ My not well!!
+ oh! I'm bored!
+ 
+ <h3 th:text="${data}"></h3>
+ <hr>
+ <table border="1" style="width: 500px">
+ 	<thead>
+ 		<tr>
+ 			<th>编号</th>
+ 			<th>姓名</th>
+ 			<th>性别</th>
+ 			<th>生日</th>
+ 			<th>操作</th>
+ 		</tr>
+ 	</thead>
+ 	
+ 	<tbody th:remove="${list.size()==0?'none':'all-but-first'}">
+ 	<tr th:each="temp,iterObj:${list}" th:style="${iterObj.odd?'background:gray':'background:white'}">
+ 		<td th:text="${iterObj.count}">编号</td>
+ 		<td th:text="${temp.name}">姓名</td>
+ 		<td>
+			<div th:switch="${temp.sex}">
+					<span th:case="1" style="color: red;">男</span>
+					<span th:case="2" style="color:blue;">女</span>
+			</div>
+		</td>
+ 		<td th:text="${#dates.format( temp.date,'yyyy年MM月dd日') }">生日</td>
+ 		<td><a th:href="@{/c/del(name=${temp.name})}">移除</a></td>
+ 	</tr>
+ 	
+ 	<tr>
+ 			<th colspan="5">没有数据</th>
+ 	</tr>
+ 	</tbody>
+ </table>
+ 
+ 
+</body>
+</html>
